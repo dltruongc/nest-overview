@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpException } from '@nestjs/common';
 
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto';
@@ -16,5 +16,10 @@ export class CatsController {
   @Get()
   async findAll(): Promise<ICat[]> {
     return this.catsService.findAll();
+  }
+
+  @Get('errors')
+  getErrors() {
+    throw new HttpException('Sample error', 500);
   }
 }

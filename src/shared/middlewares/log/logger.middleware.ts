@@ -1,5 +1,7 @@
 import { Injectable, Logger, NestMiddleware } from "@nestjs/common";
+import { NextFunction } from "express";
 
+/** ==Class style== */
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
   private readonly _logger: Logger;
@@ -13,4 +15,10 @@ export class LoggerMiddleware implements NestMiddleware {
     this._logger.verbose(toLog);    
     next();
   }
+}
+
+/** ==Functional style== */
+export function LoggerMiddleware1 (req: Request, res: Response, next: NextFunction) {
+  console.log('@' + req.method.toUpperCase() + '  -  ' + req.url);
+  next();
 }

@@ -14,18 +14,18 @@ import { Response, Request } from 'express';
  * @description If you have GraphQL, something differences, ArgumentsHosts can be imagined as array of [root, args, context, info]
  * @description **Note**: if the exception annotated, you will only get exceptions of the same type
  */
-@Catch(HttpException)
+@Catch()
 export class InternalServerErrorFilter implements ExceptionFilter {
   private _logger: Logger = new Logger('HttpExceptionFilter');
 
-  catch(exception: HttpException, host: ArgumentsHost) {
+  catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
 
     this._logger.verbose(host.switchToHttp());
 
     const response = ctx.getResponse<Response>();
 
-    if (exception instanceof InternalServerErrorException) {
+    if (!(exception instanceof HttpException)) {
       return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         message: 'You will never know what happened to this Server',
         status: 501,

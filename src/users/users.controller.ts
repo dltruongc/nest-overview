@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, Get, InternalServerErrorException, Param, Post, UseFilters } from '@nestjs/common';
 import { InternalServerErrorFilter } from 'src/shared/exception-filters/http/internal_server.filter';
 import { EmailExisted } from 'src/shared/exceptions/email-exists.exception';
 
